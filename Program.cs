@@ -1,4 +1,5 @@
 using System.Data;
+using Microsoft.AspNetCore.Mvc;
 using Npgsql;
 using TelemetryService;
 
@@ -61,7 +62,7 @@ app.MapGet("api/v1/devices/{id:long}/telemetry/latest", async (long id) =>
     })
     .WithOpenApi();
 
-app.MapGet("api/v1/devices/{id:long}/telemetry/", async (long id, DateTime start, DateTime end) => 
+app.MapGet("api/v1/devices/{id:long}/telemetry/", async (long id, [FromQuery]DateTime start, [FromQuery]DateTime end) => 
     {
         var connectionString = "Host=postgresql;Port=5432;Database=smart_home;Username=your_username;Password=your_password;";
         var sql = $@"SELECT id,
